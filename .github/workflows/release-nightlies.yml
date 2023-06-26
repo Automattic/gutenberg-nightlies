@@ -1,0 +1,121 @@
+name: Gutenberg Nightly Build
+
+on:
+  schedule:
+    # Runs at 00:00 UTC everyday
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Release Artifact
+    runs-on: ubuntu-latest
+    outputs:
+      commit_hash: ${{ steps.get_hash.outputs.hash }}
+      gutenberg_version: ${{ steps.get_version.outputs.version }}
+      nightly_version: ${{ steps.build_version_string.outputs.nightly_version }}
+
+    steps:
+      - name: Checkout Gutenberg Repo
+        uses: actions/checkout@v2
+        with:
+          repository: WordPress/gutenberg
+          ref: refs/heads/trunk
+
+      - name: Get commit hash
+        id: get_hash
+        run: echo "hash=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Get Gutenberg version
+        id: get_version
+        run: |
+          echo "version=$(sed -n '/Version: /p' gutenberg.php | awk '{print $3}')" >> $GITHUB_OUTPUT
+
+      - name: Build version string
+        id: build_version_string
+        run: |
+          echo "nightly_version=vnightly-${{ steps.get_version.outputs.version }}-${{ steps.get_hash.outputs.hash }}" >> $GITHUB_OUTPUT
+
+      - name: Set Nightly Version
+        run: |
+          sed -i "s/Version: .*/Version: ${{ steps.build_version_string.outputs.nightly_version }}/g" gutenberg.php
+
+      - name: Use desired version of Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+
+      - name: Build Gutenberg plugin ZIP file
+        run: ./bin/build-plugin-zip.sh
+        env:
+          NO_CHECKS: "true"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: gutenberg-plugin
+          path: ./gutenberg.zip
+
+  release:
+    name: Create Release
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Configure Git
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "gutenbergnightlies@users.noreply.github.com"
+
+      - name: Update previous-releases.txt
+        run: |
+          git config --global user.name "${{ github.actor }}"
+          git pull origin HEAD
+          printf "${{ needs.build.outputs.nightly_version }}\n" >> previous-releases.txt
+          git add previous-releases.txt
+          git commit -m "Add ${{ needs.build.outputs.nightly_version }} to previous-releases.txt"
+          git push origin HEAD
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Git Tag
+        run: |
+          git tag ${{ needs.build.outputs.nightly_version }}
+          git push origin ${{ needs.build.outputs.nightly_version }}
+
+      - name: Create Release
+        id: create_release
+        run: |
+          response=$(curl \
+            -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -d '{
+              "tag_name": "${{ needs.build.outputs.nightly_version }}",
+              "name": "Gutenberg Nightly ${{ needs.build.outputs.nightly_version }}",
+              "body": "Nightly build of the Gutenberg plugin created from https://github.com/WordPress/gutenberg/commit/${{ needs.build.outputs.commit_hash }}.",
+              "draft": false,
+              "prerelease": false
+            }' \
+            https://api.github.com/repos/${{ github.repository }}/releases)
+           upload_url=$(echo "$response" | jq -r '.upload_url')
+           echo "UPLOAD_URL=$upload_url" >> $GITHUB_OUTPUT
+
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: gutenberg-plugin
+
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.UPLOAD_URL }}
+          asset_path: ./gutenberg.zip
+          asset_name: gutenberg-nightly.zip
+          asset_content_type: application/zip
