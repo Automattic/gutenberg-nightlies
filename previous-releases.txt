@@ -8,3 +8,4 @@ vnightly-16.1.0-9a6958e
 vnightly-16.1.0-a3d81f6
 vnightly-16.1.1-ea6b5a1
 vnightly-16.2.0-rc.1-72b2b28
+vnightly-16.2.0-rc.1-5b0011f
