@@ -39,3 +39,4 @@ vnightly-16.4.0-rc.1-16c1345
 vnightly-16.4.0-rc.1-9dfe094
 vnightly-16.4.0-rc.1-ef8a9e0
 vnightly-16.4.0-rc.1-25215a9
+vnightly-16.4.0-rc.1-6ea8c21
