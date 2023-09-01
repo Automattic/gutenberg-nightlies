@@ -64,3 +64,4 @@ vnightly-16.5.0-77453a1
 vnightly-16.5.0-58f5e9a
 vnightly-16.5.1-5dbe0da
 vnightly-16.6.0-rc.1-5410389
+vnightly-16.6.0-rc.1-e2941e9
