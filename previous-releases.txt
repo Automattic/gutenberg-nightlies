@@ -78,3 +78,4 @@ vnightly-16.6.0-ab97d28
 vnightly-16.6.0-8f63865
 vnightly-16.6.0-0cf7898
 vnightly-16.6.0-fec5ffc
+vnightly-16.6.0-e86aae1
