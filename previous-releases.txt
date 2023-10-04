@@ -97,3 +97,4 @@ vnightly-16.7.0-abecb1d
 vnightly-16.7.0-2bead96
 vnightly-16.7.0-101306e
 vnightly-16.7.0-e3a253e
+vnightly-16.7.0-39b57b0
