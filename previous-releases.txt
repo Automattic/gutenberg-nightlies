@@ -211,3 +211,4 @@ vnightly-17.5.0-7b2350a
 vnightly-17.5.1-2997bad
 vnightly-17.5.1-291ffb9
 vnightly-17.6.0-rc.1-2e01f22
+vnightly-17.6.0-rc.2-526bfe7
