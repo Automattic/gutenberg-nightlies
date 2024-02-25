@@ -241,3 +241,4 @@ vnightly-17.7.0-8180508
 vnightly-17.8.0-rc.1-cab4b28
 vnightly-17.8.0-rc.1-c9faf06
 vnightly-17.8.0-rc.2-b4aeae0
+vnightly-17.8.0-rc.2-fa902df
