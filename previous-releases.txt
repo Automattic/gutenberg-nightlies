@@ -299,3 +299,4 @@ vnightly-18.1.2-b7e4f3c
 vnightly-18.2.0-rc.1-e8bbd2e
 vnightly-18.2.0-rc.1-55a9e19
 vnightly-18.2.0-rc.1-29254e5
+vnightly-18.2.0-rc.1-fadd9e0
