@@ -379,3 +379,4 @@ vnightly-18.7.1-b64d0ae
 vnightly-18.7.1-8b470e0
 vnightly-18.7.1-1f4891e
 vnightly-18.8.0-rc.1-8a18eea
+vnightly-18.8.0-rc.1-a4e042f
