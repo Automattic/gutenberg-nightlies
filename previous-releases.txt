@@ -424,3 +424,4 @@ vnightly-19.1.0-rc.1-0e88cda
 vnightly-19.1.0-rc.1-8c4be58
 vnightly-19.1.0-rc.1-46ad90a
 vnightly-19.1.0-rc.1-f42d775
+vnightly-19.1.0-rc.1-dec82e2
