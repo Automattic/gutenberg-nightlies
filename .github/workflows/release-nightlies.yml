@@ -52,7 +52,7 @@ jobs:
           NO_CHECKS: "true"
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: gutenberg-plugin
           path: ./gutenberg.zip
@@ -105,7 +105,7 @@ jobs:
            echo "UPLOAD_URL=$upload_url" >> $GITHUB_OUTPUT
 
       - name: Download artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: gutenberg-plugin
 
