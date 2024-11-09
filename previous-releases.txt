@@ -473,3 +473,4 @@ vnightly-19.6.0-rc.3-6df457c
 vnightly-19.6.0-rc.3-7f49b39
 vnightly-19.6.0-b252874
 vnightly-19.6.0-ab6e729
+vnightly-19.6.1-1a1db8b
