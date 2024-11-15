@@ -479,3 +479,4 @@ vnightly-19.6.1-55913fe
 vnightly-19.6.1-caf9d0b
 vnightly-19.6.1-0a5e54a
 vnightly-19.7.0-rc.1-d0a190b
+vnightly-19.7.0-rc.2-e7f0dc5
