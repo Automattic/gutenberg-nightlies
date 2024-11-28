@@ -492,3 +492,4 @@ vnightly-19.7.0-326589d
 vnightly-19.7.0-2c5421d
 vnightly-19.7.0-08d8b86
 vnightly-19.7.0-eadf2dd
+vnightly-19.8.0-rc.1-fedbea3
