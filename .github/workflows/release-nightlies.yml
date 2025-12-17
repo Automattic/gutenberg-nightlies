@@ -74,6 +74,7 @@ jobs:
       - name: Update previous-releases.txt
         run: |
           git config --global user.name "${{ github.actor }}"
+          git config pull.rebase true
           git pull origin HEAD
           printf "${{ needs.build.outputs.nightly_version }}\n" >> previous-releases.txt
           git add previous-releases.txt
