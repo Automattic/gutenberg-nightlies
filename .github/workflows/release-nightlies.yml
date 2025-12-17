@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - name: Checkout Gutenberg Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: WordPress/gutenberg
           ref: refs/heads/trunk
@@ -41,7 +41,7 @@ jobs:
           sed -i "s/Version: .*/Version: ${{ steps.build_version_string.outputs.nightly_version }}/g" gutenberg.php
 
       - name: Use desired version of Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
@@ -64,7 +64,7 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Configure Git
         run: |
