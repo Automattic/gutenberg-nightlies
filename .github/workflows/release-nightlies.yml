@@ -47,7 +47,7 @@ jobs:
           cache: "npm"
 
       - name: Build Gutenberg plugin ZIP file
-        run: ./bin/build-plugin-zip.sh
+        run: npm run build:plugin-zip
         env:
           NO_CHECKS: "true"
 
